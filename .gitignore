@@ -1,0 +1,6 @@
+my_env
+script_1/__pycache__
+script_1/test
+script_2/__pycache__
+script_2/test
+.vscode
