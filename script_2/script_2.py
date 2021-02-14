@@ -26,16 +26,18 @@ class GetPages:
         return names_authors
 
     def __extract_names_and_books(self, data, page):
-        my_list = []
-        my_list_2 = []
+        data_list = []
+        list_names = []
         for key in data["data"]:
             if key["attributes"]:
-                my_list.append(key["attributes"])
-        for dic in my_list:
+                data_list.append(key["attributes"])
+        for dic in data_list:
             for key, val in dic.items():
                 if key == 'name':
-                    my_list_2.append(
-                        {'name': val}
+                    list_names.append(
+                        {
+                            'name': val, 
+                            'page': page
+                        }
                     )
-        my_list_2.append({'page': page})
-        return my_list_2
+        return list_names
