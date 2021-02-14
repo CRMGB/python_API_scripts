@@ -1,6 +1,8 @@
 my_env
 script_1/__pycache__
-script_1/test
+script_1/.pytest_cache
+script_1/test__pycache__
 script_2/__pycache__
-script_2/test
+script_2/.pytest_cache
+script_2/test/__pycache__
 .vscode

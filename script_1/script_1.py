@@ -18,30 +18,29 @@ class GetAuthorsAndBooks:
         return names_and_books
 
     def __extract_names_and_books(self, data):
-        my_list = []
-        my_list_2 = []
-        my_list_3 = []        
+        data_list = []
+        list_names = []
+        books_list = []        
         for key in data["data"]:
             if key["attributes"] or key["relationships"]:
-                my_list.append(key["attributes"])
-                my_list.append(key["relationships"])
-        for dic in my_list:
+                data_list.append(key["attributes"])
+                data_list.append(key["relationships"])
+        for dic in data_list:
             for key, val in dic.items():
-                print(key, val)
                 if key == 'books':
-                    my_list_3.append(
+                    books_list.append(
                         sum(1 for d in val['data'] if d.get('id'))
                     )
                 if key == 'name':
-                    my_list_2.append(
+                    list_names.append(
                         {'name': val}
                     )
         
-        return self.__update_with_books(my_list_2, my_list_3)
+        return self.__update_with_books(list_names, books_list)
 
-    def __update_with_books(self, my_list_2, my_list_3):
+    def __update_with_books(self, list_names, books_list):
         i = 0
-        for item in my_list_2:
-            item.update({"book_count": my_list_3[i]})
+        for item in list_names:
+            item.update({"book_count": books_list[i]})
             i += 1
-        return my_list_2
+        return list_names
