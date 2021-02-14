@@ -9,11 +9,16 @@ URL_AUTHOR = "https://jsonapiplayground.reyesoft.com/v2/authors/"
 class GetAuthorsAndBooks:
     def fetch_data(self, author_id=None):
         if author_id is not None:
-            req = Request(
-                f'{URL_AUTHOR}{author_id}', headers={
-                    'User-Agent': AGENT
-                }
-            )
+            try:
+                req = Request(
+                    f'{URL_AUTHOR}{author_id}', headers={
+                        'User-Agent': AGENT
+                    }
+                )
+            except ValueError as err:
+                print(
+                    f"{err}, The author with id: {author_id} has not been found."
+                )
         else:
             req = Request(
                 URL, headers={
@@ -25,8 +30,6 @@ class GetAuthorsAndBooks:
         )
         print(json.dumps(authors_and_books))
         return authors_and_books
-
-
 
     def __select_data(self, data, author_id):
         data_list = []
@@ -42,8 +45,6 @@ class GetAuthorsAndBooks:
                     data_list.append(key["attributes"])
                     data_list.append(key["relationships"])
             return self.__extract_author_and_books(data_list)
-
-            
 
     def __extract_author_and_books(self, data_list):
         list_names = []

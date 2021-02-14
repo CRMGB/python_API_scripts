@@ -1,4 +1,6 @@
 import unittest
+import responses
+import requests
 from script_1 import GetAuthorsAndBooks
 
 class Script1Test(unittest.TestCase):
@@ -79,4 +81,21 @@ class Excercise3Test(unittest.TestCase):
             self.init_get_author.fetch_data(10),
             {"name": "Prof. Ova Hayes I", "book_count": 1}
         )
-                                                
+
+    # Test my meaningful exception
+    def test_the_author_has_not_been_found(self):
+        with self.assertRaises(Exception):
+            self.init_get_author.fetch_data(100)
+
+    # mock the API response
+    @responses.activate    
+    def test_mock_author_not_found(self):
+        url = 'https://jsonapiplayground.reyesoft.com/v2/authors/120'
+        responses.add(responses.GET, url,
+                  json={'error': 'not found'}, status=404)
+        resp = requests.get(url)
+        assert resp.json() == {"error": "not found"}
+
+        assert len(responses.calls) == 1
+        assert responses.calls[0].request.url == url
+        assert responses.calls[0].response.text == '{"error": "not found"}'                                    

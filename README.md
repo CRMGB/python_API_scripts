@@ -51,7 +51,7 @@ JSON API Exercise 3
 
 I'm using v_env, to initialise:
     Install pip first, then:
-        To create Venv:
+        To create v_env:
             python3 -m venv my_env
 
         activate v_env:
@@ -61,5 +61,10 @@ For testing I'm using pytest, to install:
         pip install -U pytest
         see docs: https://docs.pytest.org/en/stable/getting-started.html
 
+For the response test I'm using:
+    pip install responses
+
 For testing I cd to script to test, example: 
     cd script_1 and then python -m pytest
+
+I'm solving Exercise 3 in script_1 alongside with the Exercise 1, mocking the request as expected and raising a meaningful exception
